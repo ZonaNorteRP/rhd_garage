@@ -1,0 +1,47 @@
+name: Assign Owners to PR
+on:
+  pull_request:
+    types: [opened, reopened]
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  auto-assign:
+    runs-on: ubuntu-latest
+    steps:
+      # Obter os assignees da URL configurada
+      - name: Get Assignees from URL
+        run: |
+          curl -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+               -H "Accept: application/vnd.github.v3+json" \
+               https://users.mriqbox.com.br/public/admins.json -o assignees.json
+
+      # Depurar a resposta dos assignees
+      - name: Debug Assignees Response
+        run: |
+          echo "Response from Assignees URL:"
+          cat assignees.json
+
+      # Preparar a lista de assignees
+      - name: Parse Assignees
+        id: parse_assignees
+        run: |
+          # Extrair diretamente o array de assignees da resposta
+          ASSIGNEES=$(cat assignees.json | jq -r '. | @csv' | tr -d '"')
+          echo "assignees=$ASSIGNEES" >> $GITHUB_ENV
+
+      # Depurar a lista de assignees
+      - name: Debug Parsed Assignees
+        run: |
+          echo "Parsed Assignees: ${{ env.assignees }}"
+
+      # Atribuir os assignees ao PR
+      - name: Assign Assignees to PR
+        run: |
+          curl -X POST \
+               -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+               -H "Accept: application/vnd.github.v3+json" \
+               -d "{\"assignees\": [${{ env.assignees }}]}" \
+               https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/assignees
