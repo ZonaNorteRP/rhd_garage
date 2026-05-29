@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jacklava Garage NUI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app" style="display: none;">
+        <div class="container">
+            <header>
+                <div class="header-content">
+                    <h1 id="garage-name">GARAGEM</h1>
+                    <button class="btn-close" id="close-btn">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </header>
+
+            <main>
+                <div class="vehicle-list" id="vehicle-list">
+                    <!-- Vehicles will be injected here -->
+                </div>
+
+                <div class="sidebar">
+                    <div class="vehicle-preview">
+                        <div class="preview-icon-container">
+                            <i id="preview-icon" class="fas fa-car"></i>
+                        </div>
+                        <h2 id="preview-name">Escolha um Veículo</h2>
+                        <span id="preview-plate" class="text-muted">SEM PLACA</span>
+                    </div>
+
+                    <div class="vehicle-stats">
+                        <div class="stat-item">
+                            <div class="stat-label">
+                                <span><i class="fas fa-gas-pump"></i> Combustível</span>
+                                <span id="fuel-val">0%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div id="fuel-bar" class="progress-fill" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">
+                                <span><i class="fas fa-tools"></i> Motor</span>
+                                <span id="engine-val">0%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div id="engine-bar" class="progress-fill" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">
+                                <span><i class="fas fa-car-crash"></i> Lataria</span>
+                                <span id="body-val">0%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div id="body-bar" class="progress-fill" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="actions">
+                        <button id="spawn-btn" class="btn-primary" disabled>
+                            <i class="fas fa-sign-out-alt"></i> RETIRAR VEÍCULO
+                        </button>
+                        
+                        <div class="extra-actions">
+                            <button id="transfer-btn" class="btn-secondary" title="Transferir" disabled>
+                                <i class="fas fa-exchange-alt"></i>
+                            </button>
+                            <button id="rename-btn" class="btn-secondary" title="Renomear" disabled>
+                                <i class="fas fa-pencil-alt"></i>
+                            </button>
+                            <button id="keys-btn" class="btn-secondary" title="Chaves" disabled>
+                                <i class="fas fa-key"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
